@@ -44,3 +44,8 @@ body {
   background-size: 95%;
   background-repeat: no-repeat;
 }
+.report-details {
+  text-align: left;
+  color: black;
+  background-image: none;
+}
