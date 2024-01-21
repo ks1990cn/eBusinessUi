@@ -1,5 +1,5 @@
 import './App.css';
-import SideNav from './component/SideNav';
+import SideNav from './component/NavMenu';
 function App() {
   return (
     <div className="App">
