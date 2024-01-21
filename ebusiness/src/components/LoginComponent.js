@@ -1,5 +1,5 @@
 import React, {Component, useEffect} from 'react'
-import '../componentcss/LoginComponent.css'
+import '../componentscss/LoginComponent.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 export class LoginComponent extends Component{

@@ -1,7 +1,7 @@
 import './App.css';
-import SideNav from './component/NavMenu';
-import { ReportComponent } from './component/ReportComponent';
-import {Home} from './component/HomeComponent'
+import SideNav from './components/NavMenu';
+import { ReportComponent } from './components/ReportComponent';
+import {Home} from './components/HomeComponent'
 import { BrowserRouter as Router, Route, Routes, Navigate  } from 'react-router-dom';
 import { LoginComponent } from './components/LoginComponent';
 function App() {
