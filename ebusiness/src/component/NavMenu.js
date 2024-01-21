@@ -4,11 +4,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import '../componentcss/NavMenu.css'
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 function SideNav() {
   return (
-    <div class="navbar transparent navbar-inverse navbar-fixed-top">
+    <div className="navbar transparent navbar-inverse navbar-fixed-top">
       <Navbar expand="lg" className="navbar-inner"> 
       <Container>
         <Navbar.Brand as={Link} to="/home">E-Business</Navbar.Brand>
