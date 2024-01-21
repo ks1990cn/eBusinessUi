@@ -1,0 +1,10 @@
+
+.home-background-image{
+    margin-top: 7%;
+    margin-left: 24%;
+    padding: 0;
+    background-image: url("../Background.png");
+    background-repeat: no-repeat;
+    height: 600px;
+    width: 900px;
+  }
