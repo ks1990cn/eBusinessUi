@@ -3,6 +3,7 @@ import SideNav from './component/NavMenu';
 import { ReportComponent } from './component/ReportComponent';
 import {Home} from './component/HomeComponent'
 import { BrowserRouter as Router, Route, Routes, Navigate  } from 'react-router-dom';
+import { LoginComponent } from './components/LoginComponent';
 function App() {
   return (
     <Router>
@@ -16,6 +17,7 @@ function App() {
           />
         <Route path="/home" Component={Home} />
         <Route path="/report" Component={ReportComponent} />
+        <Route path="/login" Component={LoginComponent} />
         </Routes>
       </div>
     </Router>
