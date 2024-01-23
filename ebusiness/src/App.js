@@ -5,6 +5,14 @@ import {Home} from './components/HomeComponent'
 import { BrowserRouter as Router, Route, Routes, Navigate  } from 'react-router-dom';
 import { LoginComponent } from './components/LoginComponent';
 function App() {
+  const RequireAuth = ({ children }) => {
+    //check from local storage here
+    const userIsLogged = localStorage.getItem('isauthenticated').toLowerCase() === 'true'; 
+    if (!userIsLogged) {
+        return <LoginComponent />;
+    }
+    return children;
+};
   return (
     <Router>
       <div>
@@ -16,7 +24,12 @@ function App() {
             element={<Navigate to="/home" replace />} 
           />
         <Route path="/home" Component={Home} />
-        <Route path="/report" Component={ReportComponent} />
+        <Route path="/report" 
+         element= {
+          <RequireAuth>
+            <ReportComponent />
+          </RequireAuth>
+        } />
         <Route path="/login" Component={LoginComponent} />
         </Routes>
       </div>
