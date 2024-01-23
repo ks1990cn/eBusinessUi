@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../componentscss/LoginComponent.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function LoginComponent() {
   const [username, setUsername] = useState('');
@@ -12,8 +14,12 @@ export function LoginComponent() {
 
     if (username === 'test' && password === 'test') {
       localStorage.setItem('isauthenticated', true);
+      // Show a success toast notification
+      toast.success('Login successful!');
     } else {
       localStorage.setItem('isauthenticated', false);
+      // Show an error toast notification
+      toast.error('Invalid username or password');
     }
   };
 
@@ -46,6 +52,9 @@ export function LoginComponent() {
           Submit
         </Button>
       </Form>
+
+      {/* Toast Container for displaying notifications */}
+      <ToastContainer />
     </div>
   );
 }
