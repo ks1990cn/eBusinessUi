@@ -1,5 +1,5 @@
 import React, {Component, useEffect} from 'react'
-import '../componentscss/homeComponent.css';
+import '../componentsCSS/homeComponent.css';
 export class Home extends Component{
     render(){
         return(

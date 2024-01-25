@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../componentscss/LoginComponent.css';
+import '../componentsCSS/LoginComponent.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { toast, ToastContainer } from 'react-toastify';
@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export function LoginComponent() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const [isLoggedIn,GetLoginStatus] = useState(localStorage.getItem('isauthenticated'))
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
