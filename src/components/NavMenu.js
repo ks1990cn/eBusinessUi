@@ -9,7 +9,7 @@ import ShoppingCartLogo from './ShoppingCartLogo'; // Import the ShoppingCartLog
 
 function SideNav() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
-  const [cartItems, setCartItems] = useState([]); // State for cart items
+  const [cartItems, setCartItems] = useState([1,2]); // State for cart items
   const navigate = useNavigate(); // Initialize useHistory hook
 
   useEffect(() => {
@@ -49,14 +49,14 @@ function SideNav() {
                   Login
                 </Nav.Link>
               )}
-               <Nav.Link as={Link} to="/products">
+              {isLoggedIn && (   <Nav.Link as={Link} to="/products">
                 Products
-              </Nav.Link>
-              <Nav.Link as={Link} to="/report">
+              </Nav.Link>)}
+              {isLoggedIn && ( <Nav.Link as={Link} to="/report">
                 Reports
-              </Nav.Link>
+              </Nav.Link>)}
               {/* Add ShoppingCartLogo with item count and link to the cart */}
-              <ShoppingCartLogo itemCount={cartItems.length} onClick={() => navigate('/shoppingcart')} />
+              {isLoggedIn && (<ShoppingCartLogo itemCount={cartItems.length} onClick={() => navigate('/shoppingcart')} />)}
             </Nav>
           </Navbar.Collapse>
         </Container>
