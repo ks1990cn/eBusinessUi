@@ -16,10 +16,10 @@ export function LoginComponent() {
 
     if (username === 'test' && password === 'test') {
       localStorage.setItem('isauthenticated', true);
-      // Show a success toast notification
-      toast.success('Login successful!');
-      // Reload SideNav by navigating to the home route ("/home")
+      // Navigate to the home route ("/home")
       navigate('/home', { replace: true });
+      // Show a success toast notification
+      window.location.reload();
     } else {
       localStorage.setItem('isauthenticated', false);
       // Show an error toast notification

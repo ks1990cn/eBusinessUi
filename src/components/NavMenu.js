@@ -3,15 +3,18 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import '../componentsCSS/NavMenu.css';
-import { Link } from 'react-router-dom';
-import LogoImage from '../homelogo.png'; 
+import { Link, useNavigate } from 'react-router-dom'; // Import useHistory
+import LogoImage from '../homelogo.png';
 
 function SideNav() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const navigate = useNavigate(); // Initialize useHistory hook
 
   useEffect(() => {
     // Check login status from localStorage
-    const userIsLogged = (localStorage.getItem('isauthenticated') && localStorage.getItem('isauthenticated').toLowerCase()) === 'true';
+    const userIsLogged =
+      localStorage.getItem('isauthenticated') &&
+      localStorage.getItem('isauthenticated').toLowerCase() === 'true';
     setIsLoggedIn(userIsLogged);
   }, []); // Run only once when the component mounts
 
@@ -19,15 +22,15 @@ function SideNav() {
     // Perform logout logic here
     localStorage.setItem('isauthenticated', 'false'); // Update localStorage
     setIsLoggedIn(false); // Update state
-    // Redirect to login page or perform any other necessary actions
+    navigate('/login', { replace: true }); // Redirect to login page after logout
   };
 
   return (
     <div className="navbar transparent navbar-inverse navbar-fixed-top">
-      <Navbar expand="lg" className="navbar-inner"> 
+      <Navbar expand="lg" className="navbar-inner">
         <Container>
           <Navbar.Brand as={Link} to="/home">
-            <img src={LogoImage} alt="E-Business" style={{height:'20px'}}/>
+            <img src={LogoImage} alt="E-Business" style={{ height: '20px' }} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -36,10 +39,21 @@ function SideNav() {
               {isLoggedIn ? (
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               ) : (
-                <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                <></>
               )}
-              <Nav.Link as={Link} to="/bucket">Bucket</Nav.Link>
-              <Nav.Link as={Link} to="/report">Reports</Nav.Link>
+              {/* Render Login link only if the user is not logged in */}
+              {!isLoggedIn && (
+                <Nav.Link as={Link} to="/login">
+                  Login
+                </Nav.Link>
+              )}
+              <Nav.Link as={Link} to="/bucket">
+                Bucket
+              </Nav.Link>
+              <Nav.Link as={Link} to="/report">
+                Reports
+              </Nav.Link>
+              
             </Nav>
           </Navbar.Collapse>
         </Container>
