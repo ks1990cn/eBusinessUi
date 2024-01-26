@@ -5,6 +5,7 @@ import {Home} from './components/HomeComponent'
 import { BrowserRouter as Router, Route, Routes, Navigate  } from 'react-router-dom';
 import { LoginComponent } from './components/LoginComponent';
 import ShoppingCartComponent from './components/ShoppingCartComponent';
+import ProductComponent from './components/ProductComponent';
 function App() {
   const RequireAuth = ({ children }) => {
     //check from local storage here
@@ -36,6 +37,12 @@ function App() {
          element= {
           <RequireAuth>
             <ShoppingCartComponent />
+          </RequireAuth>
+        } />
+         <Route path="/products" 
+         element= {
+          <RequireAuth>
+            <ProductComponent />
           </RequireAuth>
         } />
         </Routes>

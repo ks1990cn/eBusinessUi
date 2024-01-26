@@ -1,12 +1,10 @@
 // ProductComponent.js
 import React from 'react';
 
-const ProductComponent = ({ product, addToCart }) => {
+const ProductComponent = () => {
   return (
     <div>
-      <h3>{product.name}</h3>
-      <p>Price: ${product.price}</p>
-      <button onClick={() => addToCart(product)}>Add to Cart</button>
+      <h1>Products</h1>
     </div>
   );
 };
