@@ -39,7 +39,7 @@ export function LoginComponent() {
             onChange={(e) => setUsername(e.target.value)}
           />
           <Form.Text className="text-muted">
-            We'll never share your username and password with anyone else.
+            Username : test and Password : test
           </Form.Text>
         </Form.Group>
 
