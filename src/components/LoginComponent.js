@@ -4,11 +4,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 export function LoginComponent() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn,GetLoginStatus] = useState(localStorage.getItem('isauthenticated'))
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
@@ -16,6 +18,8 @@ export function LoginComponent() {
       localStorage.setItem('isauthenticated', true);
       // Show a success toast notification
       toast.success('Login successful!');
+      // Reload SideNav by navigating to the home route ("/home")
+      navigate('/home', { replace: true });
     } else {
       localStorage.setItem('isauthenticated', false);
       // Show an error toast notification
