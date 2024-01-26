@@ -11,7 +11,7 @@ function SideNav() {
 
   useEffect(() => {
     // Check login status from localStorage
-    const userIsLogged = localStorage.getItem('isauthenticated').toLowerCase() === 'true';
+    const userIsLogged = (localStorage.getItem('isauthenticated') && localStorage.getItem('isauthenticated').toLowerCase()) === 'true';
     setIsLoggedIn(userIsLogged);
   }, []); // Run only once when the component mounts
 

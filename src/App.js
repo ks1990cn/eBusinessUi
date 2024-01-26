@@ -7,7 +7,7 @@ import { LoginComponent } from './components/LoginComponent';
 function App() {
   const RequireAuth = ({ children }) => {
     //check from local storage here
-    const userIsLogged = localStorage.getItem('isauthenticated').toLowerCase() === 'true'; 
+    const userIsLogged = (localStorage.getItem('isauthenticated') && localStorage.getItem('isauthenticated').toLowerCase()) === 'true'; 
     if (!userIsLogged) {
         return <LoginComponent />;
     }
