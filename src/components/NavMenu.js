@@ -5,9 +5,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import '../componentsCSS/NavMenu.css';
 import { Link, useNavigate } from 'react-router-dom'; // Import useHistory
 import LogoImage from '../homelogo.png';
+import ShoppingCartLogo from './ShoppingCartLogo'; // Import the ShoppingCartLogo component
 
 function SideNav() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [cartItems, setCartItems] = useState([]); // State for cart items
   const navigate = useNavigate(); // Initialize useHistory hook
 
   useEffect(() => {
@@ -47,13 +49,14 @@ function SideNav() {
                   Login
                 </Nav.Link>
               )}
-              <Nav.Link as={Link} to="/bucket">
-                Bucket
+               <Nav.Link as={Link} to="/products">
+                Products
               </Nav.Link>
               <Nav.Link as={Link} to="/report">
                 Reports
               </Nav.Link>
-              
+              {/* Add ShoppingCartLogo with item count and link to the cart */}
+              <ShoppingCartLogo itemCount={cartItems.length} onClick={() => navigate('/shoppingcart')} />
             </Nav>
           </Navbar.Collapse>
         </Container>

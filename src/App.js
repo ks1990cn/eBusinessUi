@@ -4,6 +4,7 @@ import { ReportComponent } from './components/ReportComponent';
 import {Home} from './components/HomeComponent'
 import { BrowserRouter as Router, Route, Routes, Navigate  } from 'react-router-dom';
 import { LoginComponent } from './components/LoginComponent';
+import ShoppingCartComponent from './components/ShoppingCartComponent';
 function App() {
   const RequireAuth = ({ children }) => {
     //check from local storage here
@@ -31,6 +32,12 @@ function App() {
           </RequireAuth>
         } />
         <Route path="/login" Component={LoginComponent} />
+        <Route path="/shoppingcart" 
+         element= {
+          <RequireAuth>
+            <ShoppingCartComponent />
+          </RequireAuth>
+        } />
         </Routes>
       </div>
     </Router>
