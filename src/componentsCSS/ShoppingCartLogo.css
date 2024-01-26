@@ -1,0 +1,20 @@
+.shopping-cart-container {
+    position: relative;
+  }
+  
+  .shopping-cart-img {
+    height: 30px;
+    margin-left: 10px;
+  }
+  
+  .item-count {
+    position: absolute;
+    top: -5px; /* Adjust as needed */
+    right: -5px; /* Adjust as needed */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+  }
+  
