@@ -7,11 +7,14 @@ import { Link, useNavigate } from 'react-router-dom'; // Import useHistory
 import LogoImage from '../homelogo.png';
 import ShoppingCartLogo from './ShoppingCartLogo'; // Import the ShoppingCartLogo component
 
-function SideNav() {
+const SideNav = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
-  const [cartItems, setCartItems] = useState([1,2]); // State for cart items
+  const [cartNumberOfItems, setCartNumberOfItems] = useState(props.cartItems.length); // State for cart items
   const navigate = useNavigate(); // Initialize useHistory hook
 
+  useEffect(() => {
+    setCartNumberOfItems(props.cartItems.length)
+  },[props.cartItems]);
   useEffect(() => {
     // Check login status from localStorage
     const userIsLogged =
@@ -56,7 +59,7 @@ function SideNav() {
                 Reports
               </Nav.Link>)}
               {/* Add ShoppingCartLogo with item count and link to the cart */}
-              {isLoggedIn && (<ShoppingCartLogo itemCount={cartItems.length} onClick={() => navigate('/shoppingcart')} />)}
+              {isLoggedIn && (<ShoppingCartLogo itemCount={cartNumberOfItems} onClick={() => navigate('/shoppingcart')} />)}
             </Nav>
           </Navbar.Collapse>
         </Container>
