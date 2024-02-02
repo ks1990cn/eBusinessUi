@@ -45,12 +45,6 @@ function App() {
   return (
     <Router>
       <div>
-      {/* <h1>Cart Items</h1>
-      <ul>
-        {cartItems.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul> */}
         <SideNav cartItems = {cartItems}/>
         <Routes>
            {/* Set the default route to redirect to /home */}
