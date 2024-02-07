@@ -7,6 +7,7 @@ import { LoginComponent } from './components/LoginComponent';
 import ShoppingCartComponent from './components/ShoppingCartComponent';
 import ProductComponent from './components/ProductComponent';
 import { useState, useEffect } from 'react';
+import { UpdateCredentialComponent } from './components/UpdateCredentialComponent';
 function App() {
   const RequireAuth = ({ children }) => {
     //check from local storage here
@@ -72,6 +73,7 @@ function App() {
             <ProductComponent />
           </RequireAuth>
         } />
+        <Route path="/updatePassword" Component={UpdateCredentialComponent} />
         </Routes>
       </div>
     </Router>

@@ -11,21 +11,37 @@ export function LoginComponent() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate hook
 
-  const handleLogin = (e) => {
+  
+  const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
-    if (username === 'test' && password === 'test') {
-      localStorage.setItem('isauthenticated', true);
-      // Navigate to the home route ("/home")
-      navigate('/home', { replace: true });
-      // Show a success toast notification
-      window.location.reload();
-    } else {
-      localStorage.setItem('isauthenticated', false);
+    try {
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      if(response.status == 303){
+        navigate('/updatePassword', { replace: true });
+        // Show a success toast notification
+        window.location.reload();
+      }
+      else if (response.ok) {
+        localStorage.setItem('isauthenticated', true);
+        // Navigate to the home route ("/home")
+        navigate('/home', { replace: true });
+        // Show a success toast notification
+        window.location.reload();
+      } 
+    } catch (error) {
+      console.error('Error:', error);
       // Show an error toast notification
-      toast.error('Invalid username or password');
+      toast.error('Error occurred while logging in');
     }
   };
+
 
   return (
     <div className='login-style'>
