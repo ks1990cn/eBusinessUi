@@ -25,25 +25,25 @@ const SideNav = (props) => {
 
   const handleLogout = async(e) => {
     // Perform logout logic here
-    localStorage.setItem('isauthenticated', 'false'); // Update localStorage
-    setIsLoggedIn(false); // Update state
-    navigate('/login', { replace: true }); // Redirect to login page after logout
-    // try {
-      
-    //   const response = await fetch('http://localhost:8080/logout', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({}),
-    //   });
-    
-    //  if (response.ok) {
-     
-    //   } 
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
+    var jwt_token = localStorage.getItem('accessToken')
+    localStorage.removeItem('IdToken')
+          localStorage.removeItem('accessToken')
+          localStorage.setItem('isauthenticated', 'false'); // Update localStorage
+    var response = await fetch('http://localhost:8080/logout', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt_token}`
+      }
+      })
+      if(response.status === 200){
+          // Handle the response data here
+          localStorage.removeItem('IdToken')
+          localStorage.removeItem('accessToken')
+          localStorage.setItem('isauthenticated', 'false'); // Update localStorage
+          setIsLoggedIn(false); // Update state
+          navigate('/login', { replace: true }); // Redirect to login page after logout
+      }
     
   };
 
