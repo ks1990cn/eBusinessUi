@@ -6,6 +6,7 @@ import '../componentsCSS/NavMenu.css';
 import { Link, useNavigate } from 'react-router-dom'; // Import useHistory
 import LogoImage from '../homelogo.png';
 import ShoppingCartLogo from './ShoppingCartLogo'; // Import the ShoppingCartLogo component
+import { toast, ToastContainer } from 'react-toastify';
 
 const SideNav = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
@@ -26,9 +27,7 @@ const SideNav = (props) => {
   const handleLogout = async(e) => {
     // Perform logout logic here
     var jwt_token = localStorage.getItem('accessToken')
-    localStorage.removeItem('IdToken')
-          localStorage.removeItem('accessToken')
-          localStorage.setItem('isauthenticated', 'false'); // Update localStorage
+   try {
     var response = await fetch('http://localhost:8080/logout', {
       method: 'POST',
       headers: {
@@ -44,6 +43,10 @@ const SideNav = (props) => {
           setIsLoggedIn(false); // Update state
           navigate('/login', { replace: true }); // Redirect to login page after logout
       }
+   } catch (error) {
+    toast.error('Error occurred while logging out');
+   }
+   
     
   };
 
