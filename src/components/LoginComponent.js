@@ -14,32 +14,64 @@ export function LoginComponent() {
   
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-
-    try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-      if(response.status == 303){
+    fetch('http://localhost:8080/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+    })
+    .then(response => {
+        if(response.status === 303){
         navigate('/updatePassword', { replace: true });
         // Show a success toast notification
         window.location.reload();
       }
-      else if (response.ok) {
-        localStorage.setItem('isauthenticated', true);
-        // Navigate to the home route ("/home")
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Handle the response data here
+        console.log(data);
+        localStorage.setItem('isauthenticated',true)
+        localStorage.setItem('IdToken',data.id_token)
+        localStorage.setItem('accessToken',data.jwt_token)
         navigate('/home', { replace: true });
-        // Show a success toast notification
         window.location.reload();
-      } 
-    } catch (error) {
-      console.error('Error:', error);
-      // Show an error toast notification
-      toast.error('Error occurred while logging in');
-    }
+        localStorage.setItem('')
+    })
+    .catch(error => {
+        // Handle errors here
+        console.error('There was a problem with the fetch operation:', error);
+        toast.error('Error occurred while logging in');
+    });
+
+    // try {
+    //   const response = await fetch('http://localhost:8080/login', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ username, password }),
+    //   })
+    //   if(response.status === 303){
+    //     navigate('/updatePassword', { replace: true });
+    //     // Show a success toast notification
+    //     window.location.reload();
+    //   }
+    //   else if (response.ok) {
+    //     // Navigate to the home route ("/home")
+    //     navigate('/home', { replace: true });
+    //     // Show a success toast notification
+    //     window.location.reload();
+    //   } 
+    // } catch (error) {
+    //   console.error('Error:', error);
+    //   // Show an error toast notification
+    //   toast.error('Error occurred while logging in');
+    // }
   };
 
 

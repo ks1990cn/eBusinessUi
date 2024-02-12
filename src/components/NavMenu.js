@@ -23,11 +23,28 @@ const SideNav = (props) => {
     setIsLoggedIn(userIsLogged);
   }, []); // Run only once when the component mounts
 
-  const handleLogout = () => {
+  const handleLogout = async(e) => {
     // Perform logout logic here
     localStorage.setItem('isauthenticated', 'false'); // Update localStorage
     setIsLoggedIn(false); // Update state
     navigate('/login', { replace: true }); // Redirect to login page after logout
+    // try {
+      
+    //   const response = await fetch('http://localhost:8080/logout', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({}),
+    //   });
+    
+    //  if (response.ok) {
+     
+    //   } 
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
+    
   };
 
   return (
