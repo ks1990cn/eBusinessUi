@@ -24,26 +24,47 @@ const SideNav = (props) => {
     setIsLoggedIn(userIsLogged);
   }, []); // Run only once when the component mounts
 
+  const clearLocalStorage = () =>{
+     // Handle the response data here
+     localStorage.removeItem('IdToken')
+     localStorage.removeItem('accessToken')
+     localStorage.setItem('isauthenticated', 'false'); // Update localStorage
+     setIsLoggedIn(false); // Update state
+     navigate('/login', { replace: true }); // Redirect to login page after logout
+  }
+
   const handleLogout = async(e) => {
     // Perform logout logic here
     var jwt_token = localStorage.getItem('accessToken')
-   try {
-    var response = await fetch('http://localhost:8080/logout', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwt_token}`
-      }
-      })
-      if(response.status === 200){
-          // Handle the response data here
-          localStorage.removeItem('IdToken')
-          localStorage.removeItem('accessToken')
-          localStorage.setItem('isauthenticated', 'false'); // Update localStorage
-          setIsLoggedIn(false); // Update state
-          navigate('/login', { replace: true }); // Redirect to login page after logout
-      }
-   } catch (error) {
+    //check if token expired
+    try {
+     var response = await fetch('http://localhost:8080/TokenValidation', {
+       method: 'POST',
+       headers: {
+           'Content-Type': 'application/json',
+           'Authorization': `Bearer ${jwt_token}`
+       }
+       })
+       if(response.status !== 200 ){
+        clearLocalStorage()
+        setIsLoggedIn(false); // Update state
+        navigate('/login', { replace: true }); // Redirect to login page after logout
+       }else{
+        var logoutResponse = await fetch('http://localhost:8080/logout', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${jwt_token}`
+          }
+          })
+          if(logoutResponse.status === 200){
+            clearLocalStorage()
+            setIsLoggedIn(false); // Update state
+            navigate('/login', { replace: true }); // Redirect to login page after logout
+          }
+       }
+    } 
+   catch (error) {
     toast.error('Error occurred while logging out');
    }
    

@@ -8,10 +8,31 @@ import ShoppingCartComponent from './components/ShoppingCartComponent';
 import ProductComponent from './components/ProductComponent';
 import { useState, useEffect } from 'react';
 import { UpdateCredentialComponent } from './components/UpdateCredentialComponent';
+
 function App() {
   const RequireAuth = ({ children }) => {
     //check from local storage here
-    const userIsLogged = (localStorage.getItem('isauthenticated') && localStorage.getItem('isauthenticated').toLowerCase()) === 'true'; 
+    var userIsLogged = (localStorage.getItem('isauthenticated') && localStorage.getItem('isauthenticated').toLowerCase()) === 'true'; 
+    //check if token expired
+    var jwt_token = localStorage.getItem('accessToken')
+    try {
+     var response = fetch('http://localhost:8080/TokenValidation', {
+       method: 'POST',
+       headers: {
+           'Content-Type': 'application/json',
+           'Authorization': `Bearer ${jwt_token}`
+       }
+       })
+       if(response.status !== 200){
+           // Handle the response data here
+           localStorage.removeItem('IdToken')
+           localStorage.removeItem('accessToken')
+           localStorage.setItem('isauthenticated', 'false'); // Update localStorage
+           userIsLogged = false
+           
+       }
+    } catch (error) {
+    }
     if (!userIsLogged) {
         return <LoginComponent />;
     }
