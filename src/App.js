@@ -15,24 +15,23 @@ function App() {
     var userIsLogged = (localStorage.getItem('isauthenticated') && localStorage.getItem('isauthenticated').toLowerCase()) === 'true'; 
     //check if token expired
     var jwt_token = localStorage.getItem('accessToken')
-    try {
-     var response = fetch('http://localhost:8080/TokenValidation', {
-       method: 'POST',
-       headers: {
-           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${jwt_token}`
-       }
-       })
-       if(response.status !== 200){
-           // Handle the response data here
+    fetch('http://localhost:8080/TokenValidation', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt_token}`
+      },
+      body: JSON.stringify({  })
+      })
+      .then(response => {
+          if(response.status != 200){
+           //        // Handle the response data here
            localStorage.removeItem('IdToken')
            localStorage.removeItem('accessToken')
            localStorage.setItem('isauthenticated', 'false'); // Update localStorage
            userIsLogged = false
-           
-       }
-    } catch (error) {
-    }
+        }
+      }).catch(error =>{})
     if (!userIsLogged) {
         return <LoginComponent />;
     }
